@@ -1,0 +1,8 @@
+src = ["src"]
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "B", "I", "Q", "UP", "N", "C90", "PL", "W", "N"]
+
+[lint.isort]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]

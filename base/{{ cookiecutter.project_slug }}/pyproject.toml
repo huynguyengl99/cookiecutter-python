@@ -1,0 +1,50 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = [
+  "poetry-core>=2.0"
+]
+
+[project]
+authors = [
+  {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
+]
+classifiers = []
+dependencies = []
+description = "{{cookiecutter.description}}"
+version = "0.0.0"
+name = "{{cookiecutter.project_slug}}"
+readme = "README.md"
+requires-python = ">=3.9,<4.0"
+license.file = "LICENSE"
+
+[tool.black]
+exclude = '''
+/(
+    \.git
+ |  \.pytest_cache
+ |  \.vscode
+ |  __pycache__
+ |  .venv
+ |  build
+ |  coverage
+)/
+'''
+line-length = 88
+preview = true
+
+[tool.poetry]
+packages = [
+  {include = "src"}
+]
+
+[tool.poetry.group.lint.dependencies]
+black = "^25.1.0"
+pre-commit = ">=3.4.0,<4.0.0"
+ruff = "^0.11.3"
+toml-sort = "^0.24.2"
+
+
+[tool.tomlsort]
+all = true
+in_place = true
+spaces_before_inline_comment = 2

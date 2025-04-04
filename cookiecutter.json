@@ -1,0 +1,19 @@
+{
+  "templates": {
+    "py": {
+      "path": "./py",
+      "title": "Python app",
+      "description": "A cookiecutter template for a normal python app"
+    },
+    "pypackage": {
+      "path": "./pypackage",
+      "title": "Python package",
+      "description": "A cookiecutter template for a python package"
+    },
+    "drf": {
+      "path": "./drf",
+      "title": "DRF",
+      "description": "A cookiecutter template for a django rest framework app"
+    }
+  }
+}

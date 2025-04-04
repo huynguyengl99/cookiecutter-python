@@ -34,6 +34,11 @@ repos:
     rev: v0.24.2
     hooks:
     -   id: toml-sort-fix
+-   repo: https://github.com/python-poetry/poetry
+    rev: 2.1.2
+    hooks:
+    -   id: poetry-check
+    -   id: poetry-lock
 ci:
     autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
     autoupdate_commit_msg: ⬆ [pre-commit.ci] pre-commit autoupdate

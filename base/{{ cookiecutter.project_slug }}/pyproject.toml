@@ -47,5 +47,5 @@ toml-sort = "^0.24.2"
 [tool.tomlsort]
 all = true
 in_place = true
-sort_inline_arrays = true
+sort_inline_arrays = false
 spaces_before_inline_comment = 2

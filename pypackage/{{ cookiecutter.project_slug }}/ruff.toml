@@ -1,9 +1,8 @@
-src = ["{{ cookiecutter.package_name }}"]
+src = ["{{ cookiecutter.package_name }}", "tests"]
 target-version = "py311"
 
 [lint]
-ignore = ["E501", "F405"]
 select = ["B", "C90", "E", "F", "I", "N", "N", "PL", "Q", "UP", "W"]
 
 [lint.isort]
-section-order = ["first-party", "future", "local-folder", "standard-library", "third-party"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"] # noqa

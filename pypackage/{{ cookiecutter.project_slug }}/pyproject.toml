@@ -1,0 +1,98 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = [
+  "poetry-core>=2.0"
+]
+
+[project]
+authors = [
+  {email = "{{cookiecutter.email}}", name = "{{cookiecutter.full_name}}"}
+]
+classifiers = [
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.9",
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development"
+]
+dependencies = []
+description = "{{cookiecutter.description}}"
+dynamic = ["version"]
+name = "{{cookiecutter.project_slug}}"
+readme = "README.md"
+requires-python = ">=3.9,<4.0"
+version = "{{cookiecutter.version}}"
+license.file = "LICENSE"
+
+[project.urls]
+Documentation = "https://{{ cookiecutter.package_name }}.readthedocs.io/"
+Homepage = "https://github.com/{{ cookiecutter.__gh_slug }}"
+Repository = "https://github.com/{{ cookiecutter.__gh_slug }}"
+
+[tool.black]
+exclude = '''
+/(
+    \.git
+ |  \.pytest_cache
+ |  \.vscode
+ |  __pycache__
+ |  .venv
+ |  build
+ |  coverage
+)/
+'''
+line-length = 88
+preview = true
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+update_changelog_on_bump = true
+version_provider = "pep621"
+version_scheme = "pep440"
+
+[tool.commitizen.customize]
+bump_map = {build = "PATCH", ci = "PATCH", docs = "PATCH", feat = "MINOR", fix = "PATCH", perf = "PATCH", refactor = "PATCH"}
+bump_pattern = '^(feat|fix|ci|build|perf|refactor|docs)'
+schema_pattern = '^(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert|bump)(\(\S+\))?\:?\s.*'
+
+[tool.poetry]
+packages = [
+  {include = "{{ cookiecutter.project_slug }}"}
+]
+
+[tool.poetry.group.dev.dependencies]
+commitizen = "^4.4.1"
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = ">=7.0.0,<8"
+sphinx_rtd_theme = "*"
+
+[tool.poetry.group.lint.dependencies]
+black = "^25.1.0"
+pre-commit = ">=3.4.0,<4.0.0"
+ruff = "^0.11.3"
+toml-sort = "^0.24.2"
+
+[tool.poetry.group.test.dependencies]
+coverage = {extras = ["toml"], version = "^7.8.0"}
+pytest = "^8.3.5"
+pytest-cov = "^6.1.0"
+pytest-mock = "^3.14.0"
+pytest-xdist = "^3.6.1"
+
+[tool.tomlsort]
+all = true
+in_place = true
+spaces_before_inline_comment = 2

@@ -95,5 +95,5 @@ pytest-xdist = "^3.6.1"
 [tool.tomlsort]
 all = true
 in_place = true
-sort_inline_arrays = false
 spaces_before_inline_comment = 2
+overrides."lint.isort.section-order".inline_arrays = false

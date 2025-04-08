@@ -15,10 +15,9 @@ dev = [
   "pytest-django>=4.11.1,<5",
   "pytest-mock>=3.14.0,<4",
   "pytest-xdist>=3.6.1,<4",
-
-{% if cookiecutter.use_websocket %}
+{%- if cookiecutter.use_websocket %}
   "daphne==4.1.2",
-{% endif %}
+{%- endif %}
 ]
 lint = [
   "black>=25.1.0,<26",
@@ -47,7 +46,7 @@ classifiers = [
 ]
 dependencies = [
   "Django>=5.2,<6",
-  "django-allauth[socialaccount]>=65.7.0,<66",
+  "dj-rest-auth[with-social]>=7.0.1,<8",
   "django-cleanup>=9.0.0,<10",
   "django-cors-headers>=4.7.0,<5",
   "django-environ>=0.12.0,<1",
@@ -63,73 +62,65 @@ dependencies = [
   "gunicorn[gevent]>=23.0.0,<24",
   "psycopg-pool>=3.2.6,<4",
   "psycopg[binary]>=3.2.6,<4",
-  "python>=3.9,<4",
   "structlog>=25.2.0,<26",
   "whitenoise>=6.9.0,<7",
-
-{% if cookiecutter.cloud_provider == 'AWS' %}
+{%- if cookiecutter.cloud_provider == 'AWS' %}
   "django-storages[s3]>=1.14.6,<2",  # https://django-storages.readthedocs.io/
-{% elif cookiecutter.cloud_provider == 'GCP' %}
+{%- elif cookiecutter.cloud_provider == 'GCP' %}
   "django-storages[google]>=1.14.6,<2",  # https://django-storages.readthedocs.io/
-{% elif cookiecutter.cloud_provider == 'Azure' %}
+{%- elif cookiecutter.cloud_provider == 'Azure' %}
   "django-storages[azure]>=1.14.6,<2",  # https://django-storages.readthedocs.io/
-{% else %}
+{%- else %}
   "django-storages>=1.14.6,<2",  # https://django-storages.readthedocs.io/
-{% endif %}
-
-{% if cookiecutter.mail_service == 'Mailgun' %}
+{%- endif %}
+{%- if cookiecutter.mail_service == 'Mailgun' %}
   "django-anymail[mailgun]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Amazon SES' %}
+{%- elif cookiecutter.mail_service == 'Amazon SES' %}
   "django-anymail[amazon-ses]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Mailjet' %}
+{%- elif cookiecutter.mail_service == 'Mailjet' %}
   "django-anymail[mailjet]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Mandrill' %}
+{%- elif cookiecutter.mail_service == 'Mandrill' %}
   "django-anymail[mandrill]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Postmark' %}
+{%- elif cookiecutter.mail_service == 'Postmark' %}
   "django-anymail[postmark]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'SendGrid' %}
+{%- elif cookiecutter.mail_service == 'SendGrid' %}
   "django-anymail[sendgrid]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Brevo' %}
+{%- elif cookiecutter.mail_service == 'Brevo' %}
   "django-anymail[brevo]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'SparkPost' %}
+{%- elif cookiecutter.mail_service == 'SparkPost' %}
   "django-anymail[sparkpost]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'MailerSend' %}
+{%- elif cookiecutter.mail_service == 'MailerSend' %}
   "django-anymail[mailersend]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Postal' %}
+{%- elif cookiecutter.mail_service == 'Postal' %}
   "django-anymail[postal]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Resend' %}
+{%- elif cookiecutter.mail_service == 'Resend' %}
   "django-anymail[resend]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Unisender Go' %}
+{%- elif cookiecutter.mail_service == 'Unisender Go' %}
   "django-anymail[unisender-go]>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% elif cookiecutter.mail_service == 'Other SMTP' %}
+{%- elif cookiecutter.mail_service == 'Other SMTP' %}
   "django-anymail>=13.0,<14",  # https://github.com/anymail/django-anymail
-{% endif %}
-
-{% if cookiecutter.camelize_api %}
+{%- endif %}
+{%- if cookiecutter.camelize_api %}
   "djangorestframework-camel-case>=1.4.2,<2",
-{% endif %}
-
-{% if cookiecutter.__use_redis %}
+{%- endif %}
+{%- if cookiecutter.__use_redis %}
   "redis[hiredis]>=5.2.1,<6",
-{% endif %}
-
-{% if cookiecutter.use_celery%}
+{%- endif %}
+{%- if cookiecutter.use_celery%}
   "django-celery-beat>=2.7.0,<3",
   "celery>=5.5.0,<6",
-{% endif %}
-
-{% if cookiecutter.use_websocket %}
+{%- endif %}
+{%- if cookiecutter.use_websocket %}
   "uvicorn>=0.34.0,<1",
   "channels>=4.2.2,<5",
   "channels-redis>=4.2.1,<5",
-{% endif %}
+{%- endif %}
 ]
 description = "{{cookiecutter.description}}"
-dynamic = ["version"]
 license = {file = "LICENSE"}
 name = "{{cookiecutter.project_slug}}"
 readme = "README.md"
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 version = "{{cookiecutter.version}}"
 
 [project.urls]

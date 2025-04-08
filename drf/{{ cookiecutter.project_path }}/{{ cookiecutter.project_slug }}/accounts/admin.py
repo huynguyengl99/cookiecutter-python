@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 
@@ -32,6 +31,7 @@ class UserCreationForm(forms.ModelForm):  # pragma: no cover
             user.save()
         return user
 
+
 class UserAdmin(BaseUserAdmin):  # pragma: no cover
     add_form = UserCreationForm
 
@@ -54,7 +54,11 @@ class UserAdmin(BaseUserAdmin):  # pragma: no cover
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "password1", "password2",),
+                "fields": (
+                    "email",
+                    "password1",
+                    "password2",
+                ),
             },
         ),
     )

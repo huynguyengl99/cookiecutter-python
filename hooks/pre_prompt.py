@@ -36,7 +36,9 @@ def copy_and_merge_directories():
     # Define source and destination paths relative to the script location
     # List contents of the directories
     for dest in dest_folders:
-        dest_dir = root_path / dest /"{{ cookiecutter.project_slug }}"
+        sub_folder = "{{ cookiecutter.project_path }}" if dest == 'drf' else "{{ cookiecutter.project_slug }}"
+
+        dest_dir = root_path / dest / sub_folder
 
         # Check if source directory exists
         if not source_dir.exists():

@@ -1,5 +1,5 @@
 from dj_rest_auth.app_settings import api_settings as jwt_settings
-from dj_rest_auth.views import LogoutView as BaseLogoutView, LoginView
+from dj_rest_auth.views import LogoutView as BaseLogoutView
 
 from accounts.serializers.authentication_serializer import LogoutSerializer
 

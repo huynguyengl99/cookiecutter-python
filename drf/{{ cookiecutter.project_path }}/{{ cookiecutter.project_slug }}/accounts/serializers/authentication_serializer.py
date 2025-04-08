@@ -1,9 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from dj_rest_auth.registration.serializers import (
-    RegisterSerializer as BaseRegisterSerializer,
-)
 from dj_rest_auth.serializers import LoginSerializer as BaseLoginSerializer
 
 

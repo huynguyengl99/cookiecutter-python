@@ -8,14 +8,14 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
 
 import os
 
-{% if not cookiecutter.use_websocket %}
+{%- if not cookiecutter.use_websocket %}
 from django.core.asgi import get_asgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")
 
 application = get_asgi_application()
 {% else %}
-from channels.routing import ChannelNameRouter, ProtocolTypeRouter
+from channels.routing import ProtocolTypeRouter
 from channels.security.websocket import OriginValidator
 from channels.sessions import CookieMiddleware
 from django.conf import settings
@@ -25,7 +25,7 @@ from django.core.asgi import get_asgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")
 django_asgi_app = get_asgi_application()  # isort: skip
 
-from config.routing import ws_routers
+from config.routing import ws_routers  # noqa
 
 routing = {
     "http": django_asgi_app,
@@ -35,4 +35,4 @@ routing = {
 }
 
 application = ProtocolTypeRouter(routing)
-{% endif %}
+{%- endif %}

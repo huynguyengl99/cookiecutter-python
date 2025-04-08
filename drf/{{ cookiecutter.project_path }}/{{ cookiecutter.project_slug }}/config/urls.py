@@ -30,7 +30,6 @@ from drf_spectacular.views import (
 from core.views.spectacular_no_error import SpectacularNoErrorAPIView
 from status.views import StatusView
 
-
 api_urlpatterns = [
     path("accounts/", include(("accounts.urls", "accounts"))),
     path("status/", StatusView.as_view(), name="status"),

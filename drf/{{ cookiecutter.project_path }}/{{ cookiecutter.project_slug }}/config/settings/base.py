@@ -41,9 +41,7 @@ ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
-PRIORITY_APPS = (
-    "whitenoise.runserver_nostatic",
-)
+PRIORITY_APPS = ("whitenoise.runserver_nostatic",)
 
 DJANGO_APPS = (
     "django.contrib.admin",
@@ -66,15 +64,15 @@ THIRD_PARTY_APPS = (
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth.registration",
-{% if cookiecutter.google_login %}
+{%- if cookiecutter.google_login %}
     "allauth.socialaccount.providers.google",
-{% endif %}
-{% if cookiecutter.use_websocket %}
+{%- endif %}
+{%- if cookiecutter.use_websocket %}
     "channels",
-{% endif %}
-{% if cookiecutter.use_celery %}
+{%- endif %}
+{%- if cookiecutter.use_celery %}
     "django_celery_beat",
-{% endif %}
+{%- endif %}
 )
 
 LOCAL_APPS = ("accounts",)
@@ -96,9 +94,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-{% if cookiecutter.camelize_api %}
+{%- if cookiecutter.camelize_api %}
     "djangorestframework_camel_case.middleware.CamelCaseMiddleWare",
-{% endif %}
+{%- endif %}
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -233,16 +231,8 @@ LOGGING = {
         }
     },
     "loggers": {
-        "uvicorn": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False
-        },
-        "uvicorn.error": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False
-        },
+        "uvicorn": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "uvicorn.error": {"handlers": ["console"], "level": "INFO", "propagate": False},
         "uvicorn.access": {},
         "django_structlog": {
             "handlers": ["console"],
@@ -279,32 +269,32 @@ structlog.configure(
 # Rest Framework
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
-{% if cookiecutter.camelize_api %}
+{%- if cookiecutter.camelize_api %}
         "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
-{% else  %}
+{%- else  %}
         "rest_framework.renderers.JSONRenderer",
-{% endif %}
+{%- endif %}
     ],
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ),
     "DEFAULT_PARSER_CLASSES": (
-{% if cookiecutter.camelize_api %}
+{%- if cookiecutter.camelize_api %}
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
         "djangorestframework_camel_case.parser.CamelCaseFormParser",
         "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
-{% else  %}
+{%- else  %}
         "rest_framework.parsers.JSONParser",
         "rest_framework.parsers.FormParser",
         "rest_framework.parsers.MultiPartParser",
-{% endif %}
+{%- endif %}
     ),
-{% if cookiecutter.camelize_api %}
+{%- if cookiecutter.camelize_api %}
     "JSON_UNDERSCOREIZE": {
         "no_underscore_before_number": True,
     },
-{% endif %}
+{%- endif %}
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
@@ -387,7 +377,9 @@ REST_AUTH = {
     "USE_JWT": True,
     "SESSION_LOGIN": False,
     "TOKEN_MODEL": None,
-    "LOGIN_SERIALIZER": "accounts.serializers.authentication_serializer.LoginSerializer",
+    "LOGIN_SERIALIZER": (
+        "accounts.serializers.authentication_serializer.LoginSerializer"
+    ),
     "USER_DETAILS_SERIALIZER": "accounts.serializers.user_serializer.UserSerializer",
     "JWT_AUTH_COOKIE": "{{ cookiecutter.project_path }}-auth",
     "JWT_AUTH_REFRESH_COOKIE": "{{ cookiecutter.project_path }}-refresh",
@@ -400,15 +392,15 @@ REST_AUTH = {
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
 CORS_ALLOW_CREDENTIALS = True
 
-SERVER_URL = env.str("SERVER_URL", 'http://localhost:8000')
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[SERVER_URL])
+SERVER_URL = env.str("SERVER_URL", "http://localhost:8000")
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[SERVER_URL])
 
 # All_auth
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_LOGIN_METHODS = {"email"}
 
-{% if cookiecutter.google_login %}
+{%- if cookiecutter.google_login %}
 # Social login
 
 ## Google
@@ -422,14 +414,14 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {
             "access_type": "offline",
         },
-        "FETCH_USERINFO" : True
+        "FETCH_USERINFO": True,
     }
 }
 
-SOCIAL_LOGIN_CALLBACK_URL_GOOGLE = env.str('SOCIAL_LOGIN_CALLBACK_URL_GOOGLE', '')
-{% endif %}
+SOCIAL_LOGIN_CALLBACK_URL_GOOGLE = env.str("SOCIAL_LOGIN_CALLBACK_URL_GOOGLE", "")
+{%- endif %}
 
-{% if cookiecutter.use_websocket %}
+{%- if cookiecutter.use_websocket %}
 # Django channels configs
 ASGI_APPLICATION = "config.asgi.application"
 CHANNEL_LAYERS = {
@@ -440,9 +432,9 @@ CHANNEL_LAYERS = {
         },
     },
 }
-{% endif %}
+{%- endif %}
 
-{% if cookiecutter.use_celery %}
+{%- if cookiecutter.use_celery %}
 # Celery config
 CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", REDIS_HOST)
 CELERY_RESULT_BACKEND = env.str("CELERY_RESULT_BACKEND", CELERY_BROKER_URL)
@@ -451,4 +443,4 @@ CELERY_TASK_DEFAULT_QUEUE = "{{ cookiecutter.project_slug }}_app_worker"
 DJANGO_STRUCTLOG_CELERY_ENABLED = True
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-{% endif %}
+{%- endif %}

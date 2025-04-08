@@ -1,21 +1,25 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = [
-  "poetry-core>=2.0"
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[dependency-groups]
+lint = [
+  "black>=25.1.0,<26",
+  "pre-commit>=3.4.0,<4.0.0",
+  "ruff>=0.11.3,<0.12",
+  "toml-sort>=0.24.2,<0.25"
 ]
 
 [project]
-authors = [
-  {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
-]
+authors = [{email = "{{cookiecutter.email}}", name = "{{cookiecutter.full_name}}"}]
 classifiers = []
 dependencies = []
 description = "{{cookiecutter.description}}"
-version = "0.0.0"
+license = {file = "LICENSE"}
 name = "{{cookiecutter.project_slug}}"
 readme = "README.md"
 requires-python = ">=3.9,<4.0"
-license.file = "LICENSE"
+version = "0.0.0"
 
 [tool.black]
 exclude = '''
@@ -32,19 +36,17 @@ exclude = '''
 line-length = 88
 preview = true
 
-[tool.poetry]
-packages = [
-  {include = "src"}
-]
+[tool.hatch.build.targets.sdist]
+include = ["src"]
 
-[tool.poetry.group.lint.dependencies]
-black = "^25.1.0"
-pre-commit = ">=3.4.0,<4.0.0"
-ruff = "^0.11.3"
-toml-sort = "^0.24.2"
+[tool.hatch.build.targets.wheel]
+include = ["src"]
 
 [tool.tomlsort]
 all = true
 in_place = true
 spaces_before_inline_comment = 2
 overrides."lint.isort.section-order".inline_arrays = false
+
+[tool.uv]
+default-groups = ["lint"]

@@ -1,13 +1,29 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = [
-  "poetry-core>=2.0"
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[dependency-groups]
+dev = ["commitizen>=4.4.1,<5"]
+docs = [
+  "Sphinx>=7.0.0,<8",
+  "sphinx_rtd_theme"
+]
+lint = [
+  "black>=25.1.0,<26",
+  "pre-commit>=3.4.0,<4.0.0",
+  "ruff>=0.11.3,<0.12",
+  "toml-sort>=0.24.2,<0.25"
+]
+test = [
+  "coverage[toml]>=7.8.0,<8",
+  "pytest-cov>=6.1.0,<7",
+  "pytest-mock>=3.14.0,<4",
+  "pytest-xdist>=3.6.1,<4",
+  "pytest>=8.3.5,<9"
 ]
 
 [project]
-authors = [
-  {email = "{{cookiecutter.email}}", name = "{{cookiecutter.full_name}}"}
-]
+authors = [{email = "{{cookiecutter.email}}", name = "{{cookiecutter.full_name}}"}]
 classifiers = [
   "Environment :: Web Environment",
   "Intended Audience :: Developers",
@@ -28,12 +44,11 @@ classifiers = [
 ]
 dependencies = []
 description = "{{cookiecutter.description}}"
-dynamic = ["version"]
+license = {file = "LICENSE"}
 name = "{{cookiecutter.project_slug}}"
 readme = "README.md"
 requires-python = ">=3.9,<4.0"
 version = "{{cookiecutter.version}}"
-license.file = "LICENSE"
 
 [project.urls]
 Documentation = "https://{{ cookiecutter.package_name }}.readthedocs.io/"
@@ -67,33 +82,17 @@ bump_map = {build = "PATCH", ci = "PATCH", docs = "PATCH", feat = "MINOR", fix =
 bump_pattern = '^(feat|fix|ci|build|perf|refactor|docs)'
 schema_pattern = '^(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert|bump)(\(\S+\))?\:?\s.*'
 
-[tool.poetry]
-packages = [
-  {include = "{{ cookiecutter.project_slug }}"}
-]
+[tool.hatch.build.targets.sdist]
+include = ["{{ cookiecutter.project_slug }}"]
 
-[tool.poetry.group.dev.dependencies]
-commitizen = "^4.4.1"
-
-[tool.poetry.group.docs.dependencies]
-Sphinx = ">=7.0.0,<8"
-sphinx_rtd_theme = "*"
-
-[tool.poetry.group.lint.dependencies]
-black = "^25.1.0"
-pre-commit = ">=3.4.0,<4.0.0"
-ruff = "^0.11.3"
-toml-sort = "^0.24.2"
-
-[tool.poetry.group.test.dependencies]
-coverage = {extras = ["toml"], version = "^7.8.0"}
-pytest = "^8.3.5"
-pytest-cov = "^6.1.0"
-pytest-mock = "^3.14.0"
-pytest-xdist = "^3.6.1"
+[tool.hatch.build.targets.wheel]
+include = ["{{ cookiecutter.project_slug }}"]
 
 [tool.tomlsort]
 all = true
 in_place = true
 spaces_before_inline_comment = 2
 overrides."lint.isort.section-order".inline_arrays = false
+
+[tool.uv]
+default-groups = "all"

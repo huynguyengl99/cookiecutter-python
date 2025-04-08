@@ -1,0 +1,35 @@
+{
+  "project_name": "My project",
+  "project_path": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "full_name": "Your Name",
+  "email": "email@example.com",
+  "github_username": "gh_username",
+  "description": "My project description",
+  "postgresql_version": "15",
+  "timezone": "UTC",
+  "cloud_provider": ["GCP", "None", "AWS",  "Azure"],
+  "mail_service": [
+    "Brevo",
+    "Other SMTP",
+    "Amazon SES",
+    "Mailgun",
+    "Mailjet",
+    "Mandrill",
+    "Postmark",
+    "Sendgrid",
+    "SparkPost",
+    "MailerSend",
+    "Postal",
+    "Resend",
+    "Unisender Go"
+
+  ],
+  "camelize_api": true,
+  "google_login": true,
+  "use_celery": true,
+  "use_websocket": true,
+  "version": "0.0.1",
+  "__gh_slug": "{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}",
+  "__use_redis": "{{ cookiecutter.use_celery or cookiecutter.use_websocket }}"
+}

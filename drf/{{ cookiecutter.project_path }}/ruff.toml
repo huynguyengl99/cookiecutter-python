@@ -4,7 +4,7 @@ target-version = "py311"
 [lint]
 ignore = [
   "E501",  # line too long, handled by black
-  "F405" # defined from star imports
+  "F405"  # defined from star imports
 ]
 select = [
   "B",  # flake8-bugbear

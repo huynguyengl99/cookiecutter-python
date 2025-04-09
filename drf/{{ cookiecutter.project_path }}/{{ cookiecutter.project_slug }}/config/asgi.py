@@ -30,7 +30,8 @@ from config.routing import ws_routers  # noqa
 routing = {
     "http": django_asgi_app,
     "websocket": OriginValidator(
-        CookieMiddleware(ws_routers), settings.CORS_ALLOWED_ORIGINS
+        CookieMiddleware(ws_routers),
+        settings.CORS_ALLOWED_ORIGINS + settings.CSRF_TRUSTED_ORIGINS,
     ),
 }
 

@@ -10,9 +10,9 @@ from accounts.views.logout_view import LogoutView
 
 urlpatterns = [
     path("registration/", include("dj_rest_auth.registration.urls")),
-    path("logout/", LogoutView.as_view(), name="rest_logout"),
+    path("logout/", LogoutView.as_view(), name="custom_rest_logout"),
 {%- if cookiecutter.camelize_api %}
-    path("user/", UserDetailsView.as_view(), name="rest_user_details"),
+    path("user/", UserDetailsView.as_view(), name="custom_rest_user_details"),
 {%- endif %}
 {%- if cookiecutter.google_login %}
     path("login/google/", GoogleLogin.as_view(), name="google_login"),

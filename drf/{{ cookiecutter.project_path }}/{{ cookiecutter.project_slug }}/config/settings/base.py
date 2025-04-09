@@ -296,7 +296,7 @@ REST_FRAMEWORK = {
     },
 {%- endif %}
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_SCHEMA_CLASS": "drf_standardized_errors.openapi.AutoSchema",
     "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
     "PAGE_SIZE": 20,
 }
@@ -310,6 +310,7 @@ SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "COMPONENT_NO_READ_ONLY_REQUIRED": True,
     "SCHEMA_COERCE_PATH_PK_SUFFIX": True,
+    "DISABLE_ERRORS_AND_WARNINGS": False if CURRENT_ENV == "dev" else True,
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
     "SERVE_AUTHENTICATION": ["rest_framework.authentication.BasicAuthentication"],
     "POSTPROCESSING_HOOKS": [

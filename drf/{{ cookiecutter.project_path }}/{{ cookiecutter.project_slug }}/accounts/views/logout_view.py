@@ -5,8 +5,7 @@ from accounts.serializers.authentication_serializer import LogoutSerializer
 
 
 class LogoutView(BaseLogoutView):
-    def get_serializer_class(self):
-        return LogoutSerializer
+    serializer_class = LogoutSerializer
 
     def initial(self, request, *args, **kwargs):
         super().initial(request, *args, **kwargs)

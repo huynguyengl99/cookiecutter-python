@@ -6,6 +6,10 @@ from dj_rest_auth.registration.views import SocialLoginView
 
 
 class GoogleLogin(SocialLoginView):
+    """
+    Google social login view
+    """
+
     adapter_class = GoogleOAuth2Adapter
     callback_url = settings.SOCIAL_LOGIN_CALLBACK_URL_GOOGLE
     client_class = OAuth2Client

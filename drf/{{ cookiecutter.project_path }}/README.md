@@ -93,5 +93,5 @@ pytest {{ cookiecutter.project_slug }}
 ```
 - With coverage
 ```bash
-pytest --cov-report term --cov={{ cookiecutter.project_slug }} {{ cookiecutter.project_slug }}
+pytest --cov-report term-missing --cov={{ cookiecutter.project_slug }} {{ cookiecutter.project_slug }}
 ```

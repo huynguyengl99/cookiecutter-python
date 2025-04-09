@@ -8,11 +8,11 @@
   "description": "My project description",
   "postgresql_version": "15",
   "timezone": "UTC",
-  "cloud_provider": ["GCP", "None", "AWS",  "Azure"],
+  "cloud_provider": ["None", "GCP", "AWS",  "Azure"],
   "mail_service": [
-    "Brevo",
     "Other SMTP",
     "Amazon SES",
+    "Brevo",
     "Mailgun",
     "Mailjet",
     "Mandrill",
@@ -23,7 +23,6 @@
     "Postal",
     "Resend",
     "Unisender Go"
-
   ],
   "camelize_api": true,
   "google_login": true,

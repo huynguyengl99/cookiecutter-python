@@ -6,7 +6,7 @@ from test_utils.auth_api_test_case import AuthAPITestCase
 
 
 class LogoutViewTestCase(AuthAPITestCase):
-    url = reverse("accounts:custom_rest_logout")
+    url = reverse("custom_rest_logout")
 
     def test_logout_no_refresh_cookie(self):
         response = self.client.post(self.url)

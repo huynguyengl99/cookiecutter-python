@@ -31,7 +31,7 @@ from core.views.spectacular_no_error import SpectacularNoErrorAPIView
 from status.views import StatusView
 
 api_urlpatterns = [
-    path("accounts/", include(("accounts.urls", "accounts"))),
+    path("accounts/", include("accounts.urls")),
     path("status/", StatusView.as_view(), name="status"),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(

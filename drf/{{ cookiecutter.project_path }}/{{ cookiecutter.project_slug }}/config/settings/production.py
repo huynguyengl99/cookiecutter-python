@@ -79,6 +79,7 @@ ANYMAIL = {
 {%- elif cookiecutter.mail_service == 'Other SMTP' %}
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 ANYMAIL = {}
+
 {%- endif %}
 
 {%- if cookiecutter.cloud_provider == 'AWS' %}
@@ -100,4 +101,3 @@ AZURE_CONTAINER = env("DJANGO_AZURE_CONTAINER_NAME")
 
 STORAGES["default"] = {"BACKEND": "storages.backends.azure_storage.AzureStorage"}
 {% endif -%}
-

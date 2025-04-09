@@ -25,9 +25,9 @@
     "Unisender Go"
   ],
   "camelize_api": true,
-  "google_login": true,
-  "use_celery": true,
-  "use_websocket": true,
+  "google_login": false,
+  "use_celery": false,
+  "use_websocket": false,
   "version": "0.0.1",
   "__gh_slug": "{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}",
   "__use_redis": "{{ cookiecutter.use_celery or cookiecutter.use_websocket }}"

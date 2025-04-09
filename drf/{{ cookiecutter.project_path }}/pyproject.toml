@@ -103,7 +103,7 @@ dependencies = [
 {%- if cookiecutter.camelize_api %}
   "djangorestframework-camel-case>=1.4.2,<2",
 {%- endif %}
-{%- if cookiecutter.__use_redis %}
+{%- if cookiecutter.use_celery or cookiecutter.use_websocket %}
   "redis[hiredis]>=5.2.1,<6",
 {%- endif %}
 {%- if cookiecutter.use_celery%}

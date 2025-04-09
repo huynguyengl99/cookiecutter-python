@@ -11,7 +11,7 @@ services:
       - "5432:5432"
     networks:
       - {{ cookiecutter.project_path }}
-{% if cookiecutter.__use_redis %}
+{%- if cookiecutter.use_celery or cookiecutter.use_websocket %}
 
   redis:
     image: redis:7
@@ -19,7 +19,7 @@ services:
       - "6379:6379"
     networks:
       - {{ cookiecutter.project_path }}
-{% endif %}
+{%- endif %}
 
 volumes:
   dbdata:

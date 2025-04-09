@@ -5,8 +5,10 @@ from .base import *  # NOQA
 DEBUG = True
 
 INSTALLED_APPS = (
-    ("daphne",)
-    + INSTALLED_APPS
+{%- if cookiecutter.use_websocket %}
+    ("daphne",) +
+{%- endif %}
+    INSTALLED_APPS
     + (
         "debug_toolbar",
         "django_extensions",
@@ -33,5 +35,5 @@ SIMPLE_JWT = {
 SPECTACULAR_SETTINGS = {
     **SPECTACULAR_SETTINGS,
     "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
-    "SERVE_AUTHENTICATION": None,
+    "SERVE_AUTHENTICATION": [],
 }

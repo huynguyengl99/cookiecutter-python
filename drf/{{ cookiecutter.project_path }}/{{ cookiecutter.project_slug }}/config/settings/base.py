@@ -168,7 +168,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CACHE CONFIGURATION
 # =========================================================================
 
-{% if cookiecutter.__use_redis %}
+{% if cookiecutter.use_celery or cookiecutter.use_websocket %}
 REDIS_HOST = env.str("REDIS_HOST", "")
 {% endif %}
 
@@ -329,7 +329,9 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "{{cookiecutter.project_name}} OpenAPI specification",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+{%- if cookiecutter.camelize_api %}
     "CAMELIZE_NAMES": True,
+{%- endif %}
     "COMPONENT_SPLIT_REQUEST": True,
     "COMPONENT_NO_READ_ONLY_REQUIRED": True,
     "SCHEMA_COERCE_PATH_PK_SUFFIX": True,
@@ -337,7 +339,9 @@ SPECTACULAR_SETTINGS = {
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
     "SERVE_AUTHENTICATION": ["rest_framework.authentication.BasicAuthentication"],
     "POSTPROCESSING_HOOKS": [
+{%- if cookiecutter.camelize_api %}
         "drf_spectacular.contrib.djangorestframework_camel_case.camelize_serializer_fields",
+{%- endif %}
         "drf_spectacular.hooks.postprocess_schema_enums",
     ],
     "ENUM_NAME_OVERRIDES": {

@@ -36,9 +36,8 @@ EXPOSE 8000
 
 # Run the FastAPI application by default
 CMD ["gunicorn", "config.wsgi", "-c", "gunicorn.conf.py"]
-{% if cookiecutter.use_websocket %}
+{%- if cookiecutter.use_websocket %}
 
 # Use the below CMD instead if you use websocket
 # CMD ["uvicorn", "--host", "0.0.0.0", "--port", "8000", "config.asgi:application"]
-{% endif %}
-
+{%- endif %}

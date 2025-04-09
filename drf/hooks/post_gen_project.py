@@ -11,11 +11,11 @@ SUCCESS = "\x1b[1;32m [SUCCESS]: "
 def cleanup_files():
     """Remove files based on cookiecutter options."""
     # Remove websocket-related files if not using websockets
-    if "{{ cookiecutter.use_websocket }}" == "false":
+    if not {{ cookiecutter.use_websocket }}:
         print(INFO + "Removing websocket-related files..." + TERMINATOR)
         paths_to_remove = [
-            Path("{{cookiecutter.project_slug}}", "chat"),
-            Path("{{cookiecutter.project_slug}}", "config", "routing.py"),
+            Path("{{ cookiecutter.project_slug }}", "chat"),
+            Path("{{ cookiecutter.project_slug }}", "config", "routing.py"),
         ]
 
         for path in paths_to_remove:
@@ -27,16 +27,16 @@ def cleanup_files():
                     path.unlink()
 
     # Remove Google login related files if not using Google login
-    if "{{ cookiecutter.google_login }}" == "false":
+    if not {{ cookiecutter.google_login }}:
         print(INFO + "Removing Google login files..." + TERMINATOR)
-        google_login_view = Path("{{cookiecutter.project_slug}}", "accounts", "views", "google_login_view.py")
+        google_login_view = Path("{{ cookiecutter.project_slug }}", "accounts", "views", "google_login_view.py")
         if google_login_view.exists():
             google_login_view.unlink()
 
     # Remove Celery files if not using Celery
-    if "{{ cookiecutter.use_celery }}" == "false":
+    if not {{ cookiecutter.use_celery }}:
         print(INFO + "Removing Celery files..." + TERMINATOR)
-        celery_app_path = Path("{{cookiecutter.project_slug}}", "config", "celery_app.py")
+        celery_app_path = Path("{{ cookiecutter.project_slug }}", "config", "celery_app.py")
         if celery_app_path.exists():
             celery_app_path.unlink()
 

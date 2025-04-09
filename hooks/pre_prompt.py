@@ -5,7 +5,11 @@ from pathlib import Path
 
 
 root_path = Path(os.path.dirname(os.path.abspath(__file__))).parent
-source_dir = root_path / "base/{{ cookiecutter.project_slug }}"
+base_path = root_path / "base"
+source_dirs = [
+    "hooks",
+    "{{ cookiecutter.project_slug }}",
+]
 
 dest_folders = ['py', 'pypackage', 'drf']
 
@@ -35,19 +39,24 @@ def merge_directories(src, dst):
 def copy_and_merge_directories():
     # Define source and destination paths relative to the script location
     # List contents of the directories
-    for dest in dest_folders:
-        sub_folder = "{{ cookiecutter.project_path }}" if dest == 'drf' else "{{ cookiecutter.project_slug }}"
-
-        dest_dir = root_path / dest / sub_folder
-
+    for source_path in source_dirs:
         # Check if source directory exists
+        source_dir = base_path / source_path
         if not source_dir.exists():
-            return
+            continue
 
-        # Create destination directory if it doesn't exist
-        os.makedirs(dest_dir, exist_ok=True)
+        for dest in dest_folders:
+            if source_path == "{{ cookiecutter.project_slug }}":
+                sub_folder = "{{ cookiecutter.project_path }}" if dest == 'drf' else "{{ cookiecutter.project_slug }}"
+            else:
+                sub_folder = source_path
 
-        # Merge the directories
-        merge_directories(source_dir, dest_dir)
+            dest_dir = root_path / dest / sub_folder
+
+            # Create destination directory if it doesn't exist
+            os.makedirs(dest_dir, exist_ok=True)
+
+            # Merge the directories
+            merge_directories(source_dir, dest_dir)
 
 copy_and_merge_directories()

@@ -11,7 +11,7 @@ source_dirs = [
     "{{ cookiecutter.repo_name }}",
 ]
 
-dest_folders = ['py', 'pypackage', 'drf']
+dest_folders = ['py', 'pypackage', 'drf', 'drf_package']
 
 
 def merge_directories(src, dst):

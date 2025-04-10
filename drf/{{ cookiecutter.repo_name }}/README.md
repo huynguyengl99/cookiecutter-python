@@ -69,7 +69,7 @@ pre-commit install
 
 ### Packages management
 - [uv](https://docs.astral.sh/uv/): the package dependencies management we use.
-- When you want to add a dependency just run `uv add your_package_name`.
+- When you want to add a dependency just run `uv add your_repo_name`.
 
 ### Code conventions
 - For code convention we are using:

@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - {{ cookiecutter.project_path }}
+      - {{ cookiecutter.repo_name }}
 {%- if cookiecutter.use_celery or cookiecutter.use_websocket %}
 
   redis:
@@ -18,12 +18,12 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - {{ cookiecutter.project_path }}
+      - {{ cookiecutter.repo_name }}
 {%- endif %}
 
 volumes:
   dbdata:
 
 networks:
-  {{ cookiecutter.project_path }}:
+  {{ cookiecutter.repo_name }}:
     driver: bridge

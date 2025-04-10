@@ -51,7 +51,7 @@ requires-python = ">=3.9,<4.0"
 version = "{{cookiecutter.version}}"
 
 [project.urls]
-Documentation = "https://{{ cookiecutter.package_name }}.readthedocs.io/"
+Documentation = "https://{{ cookiecutter.repo_name }}.readthedocs.io/"
 Homepage = "https://github.com/{{ cookiecutter.__gh_slug }}"
 Repository = "https://github.com/{{ cookiecutter.__gh_slug }}"
 

@@ -18,7 +18,7 @@ project = "{{ cookiecutter.project_name }}"
 copyright = "{% now 'local', '%Y' %}, {{ cookiecutter.full_name }}"
 author = "{{ cookiecutter.full_name }}"
 
-release = version("{{ cookiecutter.package_name }}")
+release = version("{{ cookiecutter.repo_name }}")
 version = release
 
 

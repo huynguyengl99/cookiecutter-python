@@ -281,8 +281,8 @@ REST_AUTH = {
         "accounts.serializers.authentication_serializer.RegisterSerializer"
     ),
     "USER_DETAILS_SERIALIZER": "accounts.serializers.user_serializer.UserSerializer",
-    "JWT_AUTH_COOKIE": "{{ cookiecutter.project_path }}-auth",
-    "JWT_AUTH_REFRESH_COOKIE": "{{ cookiecutter.project_path }}-refresh",
+    "JWT_AUTH_COOKIE": "{{ cookiecutter.repo_name }}-auth",
+    "JWT_AUTH_REFRESH_COOKIE": "{{ cookiecutter.repo_name }}-refresh",
     "JWT_AUTH_RETURN_EXPIRATION": True,
     "JWT_AUTH_SECURE": True,
     "JWT_AUTH_SAMESITE": "Strict",

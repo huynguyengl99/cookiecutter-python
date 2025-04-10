@@ -8,7 +8,7 @@ root_path = Path(os.path.dirname(os.path.abspath(__file__))).parent
 base_path = root_path / "base"
 source_dirs = [
     "hooks",
-    "{{ cookiecutter.project_slug }}",
+    "{{ cookiecutter.repo_name }}",
 ]
 
 dest_folders = ['py', 'pypackage', 'drf']
@@ -46,12 +46,7 @@ def copy_and_merge_directories():
             continue
 
         for dest in dest_folders:
-            if source_path == "{{ cookiecutter.project_slug }}":
-                sub_folder = "{{ cookiecutter.project_path }}" if dest == 'drf' else "{{ cookiecutter.project_slug }}"
-            else:
-                sub_folder = source_path
-
-            dest_dir = root_path / dest / sub_folder
+            dest_dir = root_path / dest / source_path
 
             # Create destination directory if it doesn't exist
             os.makedirs(dest_dir, exist_ok=True)

@@ -50,3 +50,4 @@ overrides."lint.isort.section-order".inline_arrays = false
 
 [tool.uv]
 default-groups = ["lint"]
+package = false

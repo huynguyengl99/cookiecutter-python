@@ -164,13 +164,13 @@ DATABASES = {
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+{%- if cookiecutter.use_celery or cookiecutter.use_websocket %}
 # =========================================================================
-# CACHE CONFIGURATION
+# REDIS CONFIGURATION
 # =========================================================================
 
-{% if cookiecutter.use_celery or cookiecutter.use_websocket %}
 REDIS_HOST = env.str("REDIS_HOST", "")
-{% endif %}
+{%- endif %}
 
 # =========================================================================
 # AUTHENTICATION CONFIGURATION

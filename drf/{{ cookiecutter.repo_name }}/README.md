@@ -46,8 +46,8 @@ scripts/manage.sh createsuperuser
 scripts/manage.sh runserver 8000
 ```
 - Visit API playground and API documentation at:
-  - API playground(Swagger): http://localhost:8000/api/cms-schema/swg/.
-  - API documentation: http://localhost:8000/api/cms-schema/redoc/
+  - API playground(Swagger): http://localhost:8000/api/schema/swg/.
+  - API documentation: http://localhost:8000/api/schema/redoc/
 - (Optional) To set up pre-commit hook (to automatically code formatting and dependencies checking before commit) run:
 ```bash
 pre-commit install

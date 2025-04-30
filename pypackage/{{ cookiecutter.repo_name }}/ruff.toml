@@ -5,4 +5,4 @@ target-version = "py311"
 select = ["B", "C90", "E", "F", "I", "N", "N", "PL", "Q", "UP", "W"]
 
 [lint.isort]
-section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]  # noqa
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]

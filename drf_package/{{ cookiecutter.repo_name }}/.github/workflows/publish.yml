@@ -22,13 +22,10 @@ jobs:
   publish:
     if: "startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-latest
+    environment: deploy  # change this to your GitHub permission-granted environment
     permissions:
       id-token: write
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,9 +44,3 @@ jobs:
         run: python -m build
       - name: Publish
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"

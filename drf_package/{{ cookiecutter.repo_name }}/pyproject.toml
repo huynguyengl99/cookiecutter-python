@@ -11,26 +11,37 @@ dev = [
   "commitizen>=4.5.0,<5",
   "coveralls>=4.0.1,<5",
   "django-cleanup>=9.0.0,<10",
+  "django-cors-headers>=4.7.0,<5",
   "django-debug-toolbar>=5.1.0,<6",
-  "django-environ>=0.12.0,<1",
   "django-extensions>=3.2.3,<4",
+  "django-structlog>=9.1.0,<10",
   "drf-spectacular>=0.28.0,<1",
+  "environs>=14.1.1,<15",
   "factory-boy>=3.3.3,<4",
   "freezegun>=1.5.1,<2",
+  "ipython>=8.35.0",
   "mock>=5.2.0,<6",
   "psycopg-pool>=3.2.6,<4",
   "psycopg[binary]>=3.2.6,<4",
   "pytest-cov>=6.1.1,<7",
   "pytest-django>=4.11.1,<5",
   "pytest-mock>=3.14.0,<4",
-  "pytest-xdist>=3.6.1,<4"
+  "pytest-xdist>=3.6.1,<4",
 ]
 docs = [
   "Sphinx>=7.0.0,<8",
+  "myst-parser>=4.0.1",
   "sphinx_rtd_theme"
 ]
 lint = [
   "black>=25.1.0,<26",
+{%- if cookiecutter.use_websocket %}
+  "channels-stubs",
+{%- endif %}
+  "django-stubs[compatible-mypy]>=5,<6",
+  "djangorestframework-stubs[compatible-mypy]>=3,<4",
+  "interrogate>=1.7.0",
+  "mypy>=1.15.0",
   "pre-commit>=3.4.0,<4.0.0",
   "ruff>=0.11.3,<0.12",
   "toml-sort>=0.24.2,<0.25"
@@ -56,7 +67,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
   "Topic :: Internet :: WWW/HTTP",
   "Topic :: Software Development :: Libraries :: Application Frameworks",
@@ -66,6 +77,8 @@ classifiers = [
 dependencies = [
   "Django>=5,<6",
   "djangorestframework>=3,<4",
+  "django-stubs-ext>=5,<6",
+  "structlog>=25.2.0,<26",
 {%- if cookiecutter.use_websocket %}
   "redis[hiredis]>=5.2.1,<6",
   "channels>=4,<5",
@@ -100,22 +113,41 @@ line-length = 88
 preview = true
 
 [tool.commitizen]
+gpg_sign = true
 name = "cz_conventional_commits"
+pre_bump_hooks = [
+  "scripts/update_lock.sh"
+]
 tag_format = "v$version"
 update_changelog_on_bump = true
+use_shortcuts = true
 version_provider = "pep621"
 version_scheme = "pep440"
-
-[tool.commitizen.customize]
-bump_map = {build = "PATCH", ci = "PATCH", docs = "PATCH", feat = "MINOR", fix = "PATCH", perf = "PATCH", refactor = "PATCH"}
-bump_pattern = '^(feat|fix|ci|build|perf|refactor|docs)'
-schema_pattern = '^(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert|bump)(\(\S+\))?\:?\s.*'
 
 [tool.hatch.build.targets.sdist]
 include = ["{{ cookiecutter.project_slug }}"]
 
 [tool.hatch.build.targets.wheel]
 include = ["{{ cookiecutter.project_slug }}"]
+
+[tool.interrogate]
+badge-format = "svg"
+color = true
+exclude = ["build", "docs", "setup.py", "sandbox"]
+ext = []
+fail-under = 80
+generate-badge = "docs/_static/"
+ignore-init-method = true
+ignore-init-module = true
+ignore-module = false
+ignore-nested-classes = false
+ignore-nested-functions = false
+ignore-overloaded-functions = false
+ignore-private = false
+ignore-property-decorators = false
+style = "sphinx"
+verbose = 0
+whitelist-regex = []
 
 [tool.tomlsort]
 all = true

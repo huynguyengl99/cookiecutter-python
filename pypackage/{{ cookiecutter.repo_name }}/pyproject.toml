@@ -94,7 +94,7 @@ include = ["{{ cookiecutter.project_slug }}"]
 [tool.interrogate]
 badge-format = "svg"
 color = true
-exclude = ["build", "docs", "setup.py"]
+exclude = ["build", "docs", "setup.py", "tests"]
 ext = []
 fail-under = 80
 generate-badge = "docs/_static/"

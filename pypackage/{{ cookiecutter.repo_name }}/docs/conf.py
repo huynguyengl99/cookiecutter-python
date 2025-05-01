@@ -12,7 +12,6 @@ from pathlib import Path
 
 sys.path.append(os.path.abspath("."))
 sys.path.append(os.path.abspath(".."))
-sys.path.append(os.path.abspath("../tests"))
 
 project = "{{ cookiecutter.project_name }}"
 copyright = "{% now 'local', '%Y' %}, {{ cookiecutter.full_name }}"
@@ -28,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+    "myst_parser",
     "sphinx.ext.duration",
     "sphinx.ext.doctest",
     "sphinx.ext.autodoc",

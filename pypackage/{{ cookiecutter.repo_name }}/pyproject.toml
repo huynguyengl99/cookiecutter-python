@@ -6,10 +6,13 @@ requires = ["hatchling"]
 dev = ["commitizen>=4.4.1,<5"]
 docs = [
   "Sphinx>=7.0.0,<8",
+  "myst-parser>=4.0.1",
   "sphinx_rtd_theme"
 ]
 lint = [
   "black>=25.1.0,<26",
+  "interrogate>=1.7.0",
+  "mypy>=1.15.0",
   "pre-commit>=3.4.0,<4.0.0",
   "ruff>=0.11.3,<0.12",
   "toml-sort>=0.24.2,<0.25"
@@ -35,7 +38,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
   "Topic :: Internet :: WWW/HTTP",
   "Topic :: Software Development :: Libraries :: Application Frameworks",
@@ -47,7 +50,7 @@ description = "{{cookiecutter.description}}"
 license = {file = "LICENSE"}
 name = "{{cookiecutter.project_slug}}"
 readme = "README.md"
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 version = "{{cookiecutter.version}}"
 
 [project.urls]
@@ -71,22 +74,41 @@ line-length = 88
 preview = true
 
 [tool.commitizen]
+gpg_sign = true
 name = "cz_conventional_commits"
+pre_bump_hooks = [
+  "scripts/update_lock.sh"
+]
 tag_format = "v$version"
 update_changelog_on_bump = true
+use_shortcuts = true
 version_provider = "pep621"
 version_scheme = "pep440"
-
-[tool.commitizen.customize]
-bump_map = {build = "PATCH", ci = "PATCH", docs = "PATCH", feat = "MINOR", fix = "PATCH", perf = "PATCH", refactor = "PATCH"}
-bump_pattern = '^(feat|fix|ci|build|perf|refactor|docs)'
-schema_pattern = '^(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert|bump)(\(\S+\))?\:?\s.*'
 
 [tool.hatch.build.targets.sdist]
 include = ["{{ cookiecutter.project_slug }}"]
 
 [tool.hatch.build.targets.wheel]
 include = ["{{ cookiecutter.project_slug }}"]
+
+[tool.interrogate]
+badge-format = "svg"
+color = true
+exclude = ["build", "docs", "setup.py"]
+ext = []
+fail-under = 80
+generate-badge = "docs/_static/"
+ignore-init-method = true
+ignore-init-module = true
+ignore-module = false
+ignore-nested-classes = false
+ignore-nested-functions = false
+ignore-overloaded-functions = false
+ignore-private = false
+ignore-property-decorators = false
+style = "sphinx"
+verbose = 0
+whitelist-regex = []
 
 [tool.tomlsort]
 all = true

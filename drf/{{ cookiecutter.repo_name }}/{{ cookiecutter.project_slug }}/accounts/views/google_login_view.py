@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 
 
-class GoogleLogin(SocialLoginView):
+class GoogleLogin(SocialLoginView):  # type: ignore[misc]
     """
     Google social login view
     """

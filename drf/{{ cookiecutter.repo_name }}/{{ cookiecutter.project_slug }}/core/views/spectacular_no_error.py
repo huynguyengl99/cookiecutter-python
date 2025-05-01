@@ -1,23 +1,35 @@
 import contextlib
+from collections.abc import Iterator
+from typing import Any, cast
+
+from rest_framework.request import Request
+from rest_framework.response import Response
 
 from drf_spectacular.utils import extend_schema
 from drf_spectacular.views import SpectacularAPIView
 
 
 @contextlib.contextmanager
-def alter_error_schema():
+def alter_error_schema() -> Iterator[None]:
     from drf_standardized_errors.openapi import AutoSchema
 
+    # Store the original method
     old_schema_should_add_error_response = AutoSchema._should_add_error_response  # noqa
 
-    def new_schema_should_add_error_response(self, responses: dict, status_code: str):
+    # Define the replacement method with proper typing
+    def new_schema_should_add_error_response(
+        self: Any, responses: dict[str, Any], status_code: str
+    ) -> bool:
         return False
 
     try:
-        AutoSchema._should_add_error_response = new_schema_should_add_error_response
+        # Use monkey patching to replace the method
+        # We need to use setattr to avoid the mypy error about assigning to a method
+        AutoSchema._should_add_error_response = new_schema_should_add_error_response  # type: ignore
         yield
     finally:
-        AutoSchema._should_add_error_response = old_schema_should_add_error_response
+        # Restore the original method
+        AutoSchema._should_add_error_response = old_schema_should_add_error_response  # type: ignore
 
 
 class SpectacularNoErrorAPIView(SpectacularAPIView):
@@ -30,6 +42,6 @@ class SpectacularNoErrorAPIView(SpectacularAPIView):
     """
 
     @extend_schema(exclude=True)
-    def get(self, request, *args, **kwargs):
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         with alter_error_schema():
-            return super().get(request, *args, **kwargs)
+            return cast(Response, super().get(request, *args, **kwargs))  # type: ignore[no-untyped-call]

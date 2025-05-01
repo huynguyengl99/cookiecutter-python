@@ -1,7 +1,3 @@
-[build-system]
-build-backend = "hatchling.build"
-requires = ["hatchling"]
-
 [dependency-groups]
 dev = [
   {%- if cookiecutter.use_websocket %}
@@ -13,6 +9,7 @@ dev = [
   "django-debug-toolbar>=5.1.0,<6",
   "factory-boy>=3.3.3,<4",
   "freezegun>=1.5.1,<2",
+  "ipython>=8.35.0",
   "mock>=5.2.0,<6",
   "pytest-cov>=6.1.1,<7",
   "pytest-django>=4.11.1,<5",
@@ -21,6 +18,12 @@ dev = [
 ]
 lint = [
   "black>=25.1.0,<26",
+{%- if cookiecutter.use_websocket %}
+  "channels-stubs",
+{%- endif %}
+  "django-stubs[compatible-mypy]>=5.1.0",
+  "djangorestframework-stubs[compatible-mypy]>=3.16.0",
+  "mypy>=1.15.0",
   "pre-commit>=3.4.0,<4.0.0",
   "ruff>=0.11.3,<0.12",
   "toml-sort>=0.24.2,<0.25"
@@ -46,59 +49,61 @@ classifiers = [
 ]
 dependencies = [
   "Django>=5.1,<6",
+  "django-stubs-ext>=5.1,<6",
   "dj-rest-auth[with-social]>=7.0.1,<8",
   "django-cleanup>=9.0.0,<10",
   "django-cors-headers>=4.7.0,<5",
-  "django-environ>=0.12.0,<1",
   "django-extensions>=3.2.3,<4",
   "django-filter>=25.1,<26",
   "django-structlog>=9.1.0,<10",
+  "django-stubs-ext>=5.1,<6",
   "djangorestframework-api-key",
   "djangorestframework-simplejwt>=5.5.0,<6",
   "djangorestframework>=3.16.0,<4",
   "drf-nested-routers>=0.94.1,<1",
   "drf-spectacular>=0.28.0,<1",
   "drf-standardized-errors>=0.14.1,<1",
+  "environs>=14.1.1,<15",
   "gunicorn[gevent]>=23.0.0,<24",
   "psycopg-pool>=3.2.6,<4",
   "psycopg[binary]>=3.2.6,<4",
   "structlog>=25.2.0,<26",
   "whitenoise>=6.9.0,<7",
 {%- if cookiecutter.cloud_provider == 'AWS' %}
-  "django-storages[s3]>=1.14.6,<2",  # https://django-storages.readthedocs.io/
+  "django-storages[s3]>=1.14.6,<2",
 {%- elif cookiecutter.cloud_provider == 'GCP' %}
-  "django-storages[google]>=1.14.6,<2",  # https://django-storages.readthedocs.io/
+  "django-storages[google]>=1.14.6,<2",
 {%- elif cookiecutter.cloud_provider == 'Azure' %}
-  "django-storages[azure]>=1.14.6,<2",  # https://django-storages.readthedocs.io/
+  "django-storages[azure]>=1.14.6,<2",
 {%- else %}
-  "django-storages>=1.14.6,<2",  # https://django-storages.readthedocs.io/
+  "django-storages>=1.14.6,<2",
 {%- endif %}
 {%- if cookiecutter.mail_service == 'Mailgun' %}
-  "django-anymail[mailgun]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[mailgun]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Amazon SES' %}
-  "django-anymail[amazon-ses]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[amazon-ses]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Mailjet' %}
-  "django-anymail[mailjet]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[mailjet]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Mandrill' %}
-  "django-anymail[mandrill]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[mandrill]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Postmark' %}
-  "django-anymail[postmark]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[postmark]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'SendGrid' %}
-  "django-anymail[sendgrid]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[sendgrid]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Brevo' %}
-  "django-anymail[brevo]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[brevo]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'SparkPost' %}
-  "django-anymail[sparkpost]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[sparkpost]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'MailerSend' %}
-  "django-anymail[mailersend]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[mailersend]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Postal' %}
-  "django-anymail[postal]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[postal]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Resend' %}
-  "django-anymail[resend]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[resend]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Unisender Go' %}
-  "django-anymail[unisender-go]>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail[unisender-go]>=13.0,<14",
 {%- elif cookiecutter.mail_service == 'Other SMTP' %}
-  "django-anymail>=13.0,<14",  # https://github.com/anymail/django-anymail
+  "django-anymail>=13.0,<14",
 {%- endif %}
 {%- if cookiecutter.camelize_api %}
   "djangorestframework-camel-case>=1.4.2,<2",

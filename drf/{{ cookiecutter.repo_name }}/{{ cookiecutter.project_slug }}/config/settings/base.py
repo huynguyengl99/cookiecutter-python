@@ -8,30 +8,30 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 
-import environ
+import django_stubs_ext
 import structlog
+from environs import env
+
+# =========================================================================
+# STUB MONKEYPATCH FOR DJANGO MYPY
+# =========================================================================
+django_stubs_ext.monkeypatch()
 
 # =========================================================================
 # PATH CONFIGURATION
 # =========================================================================
 
-CONFIG_PATH = environ.Path(__file__)
-BASE_DIR = Path(CONFIG_PATH - 4)
-APPS_DIR = Path(CONFIG_PATH - 3)
+CONFIG_PATH = Path(__file__)
+BASE_DIR = CONFIG_PATH.parent.parent.parent
+ROOT_DIR = BASE_DIR.parent
 
 # =========================================================================
 # ENVIRONMENT SETTINGS
 # =========================================================================
 
-env = environ.Env()
-env_file = f"{BASE_DIR}/.env"
-
-if os.path.isfile(env_file):
-    os.environ.pop("DJANGO_SETTINGS_MODULE")
-    environ.Env.read_env(env_file)
+env.read_env()
 
 CURRENT_ENV = env.str("DJANGO_SETTINGS_MODULE").split(".")[-1]
 
@@ -53,9 +53,9 @@ SERVER_URL = env.str("SERVER_URL", "http://localhost:8000")
 # APPLICATION DEFINITION
 # =========================================================================
 
-PRIORITY_APPS = ("whitenoise.runserver_nostatic",)
+PRIORITY_APPS = ["whitenoise.runserver_nostatic"]
 
-DJANGO_APPS = (
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -63,9 +63,9 @@ DJANGO_APPS = (
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-)
+]
 
-THIRD_PARTY_APPS = (
+THIRD_PARTY_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
@@ -85,11 +85,11 @@ THIRD_PARTY_APPS = (
 {%- if cookiecutter.use_celery %}
     "django_celery_beat",
 {%- endif %}
-)
+]
 
-LOCAL_APPS = ("accounts",)
+LOCAL_APPS = ["accounts"]
 
-EXTRA_APP = ("django_cleanup.apps.CleanupConfig",)
+EXTRA_APP = ["django_cleanup.apps.CleanupConfig"]
 
 INSTALLED_APPS = PRIORITY_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + EXTRA_APP
 
@@ -213,7 +213,7 @@ USE_TZ = True
 # STATIC FILES CONFIGURATION
 # =========================================================================
 
-STATIC_ROOT = str(APPS_DIR / "static")
+STATIC_ROOT = str(BASE_DIR / "static")
 STATIC_URL = "static/"
 
 MEDIA_ROOT = str(BASE_DIR / "media/")
@@ -397,13 +397,21 @@ DRF_STANDARDIZED_ERRORS = {
 # CORS CONFIGURATION
 # =========================================================================
 
-CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
+CORS_ALLOWED_ORIGINS: list[str] = env.list("CORS_ALLOWED_ORIGINS", default=[])
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[SERVER_URL])
 
 # =========================================================================
 # LOGGING CONFIGURATION
 # =========================================================================
+
+pre_chain = [
+    structlog.contextvars.merge_contextvars,
+    structlog.processors.TimeStamper(fmt="iso"),
+    structlog.stdlib.add_logger_name,
+    structlog.stdlib.add_log_level,
+    structlog.stdlib.PositionalArgumentsFormatter(),
+]
 
 LOGGING = {
     "version": 1,
@@ -414,7 +422,9 @@ LOGGING = {
             "processors": (
                 [
                     structlog.stdlib.ProcessorFormatter.remove_processors_meta,
-                    structlog.dev.ConsoleRenderer(),
+                    structlog.dev.ConsoleRenderer(
+                        exception_formatter=structlog.dev.plain_traceback
+                    ),
                 ]
                 if CURRENT_ENV in {"dev", "test"}
                 else [
@@ -423,6 +433,7 @@ LOGGING = {
                     structlog.processors.JSONRenderer(),
                 ]
             ),
+            "foreign_pre_chain": pre_chain,
         },
         "json_formatter": {
             "()": structlog.stdlib.ProcessorFormatter,
@@ -431,6 +442,7 @@ LOGGING = {
                 structlog.stdlib.ProcessorFormatter.remove_processors_meta,
                 structlog.processors.JSONRenderer(),
             ],
+            "foreign_pre_chain": pre_chain,
         },
     },
     "handlers": {
@@ -443,6 +455,15 @@ LOGGING = {
         "uvicorn": {"handlers": ["console"], "level": "INFO", "propagate": False},
         "uvicorn.error": {"handlers": ["console"], "level": "INFO", "propagate": False},
         "uvicorn.access": {},
+        "": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.channels.server": {
+            "handlers": ["console"],
+            "level": "ERROR",
+        },
         "django_structlog": {
             "handlers": ["console"],
             "level": "INFO",
@@ -459,15 +480,10 @@ LOGGING = {
 }
 
 structlog.configure(
-    processors=[
-        structlog.contextvars.merge_contextvars,
+    processors=pre_chain  # type: ignore[arg-type]
+    + [
         structlog.stdlib.filter_by_level,
-        structlog.processors.TimeStamper(fmt="iso"),
-        structlog.stdlib.add_logger_name,
-        structlog.stdlib.add_log_level,
-        structlog.stdlib.PositionalArgumentsFormatter(),
         structlog.processors.StackInfoRenderer(),
-        structlog.processors.format_exc_info,
         structlog.processors.UnicodeDecoder(),
         structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
     ],

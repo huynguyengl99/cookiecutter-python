@@ -1,13 +1,12 @@
 import factory
-from factory.django import DjangoModelFactory
+
+from accounts.models import User
+from test_utils.factory import BaseModelFactory
 
 
-class UserFactory(DjangoModelFactory):
-    class Meta:
-        model = "accounts.User"
-        django_get_or_create = ("email",)
-        skip_postgeneration_save = True
-
-    email = factory.Faker("email")
-    password = factory.PostGenerationMethodCall("set_password", "password")
+class UserFactory(BaseModelFactory[User]):
+    email = factory.Faker("email")  # type:ignore[attr-defined,no-untyped-call]
+    password = "password"
     is_active = True
+    is_superuser = False
+    is_staff = False

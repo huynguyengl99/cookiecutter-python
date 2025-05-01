@@ -7,8 +7,9 @@ from accounts.factories.user import UserFactory
 
 
 class AuthAPITestCase(APITestCase):
-    def setUp(self):
-        self.user = UserFactory(email="user@mail.com")
+    def setUp(self) -> None:
+        self.user = UserFactory.create(email="user@mail.com")
+        self.user.save()
 
         user_refresh_token = RefreshToken.for_user(self.user)
 

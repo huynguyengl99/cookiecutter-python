@@ -1,3 +1,5 @@
+# mypy: ignore-errors
+
 from .base import *  # NOQA
 
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
@@ -9,76 +11,76 @@ INSTALLED_APPS += ["anymail"]
 # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
 {%- if cookiecutter.mail_service == 'Mailgun' %}
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "MAILGUN_API_KEY": env("MAILGUN_API_KEY"),
     "MAILGUN_SENDER_DOMAIN": env("MAILGUN_DOMAIN"),
     "MAILGUN_API_URL": env("MAILGUN_API_URL", default="https://api.mailgun.net/v3"),
 }
 {%- elif cookiecutter.mail_service == 'Amazon SES' %}
 EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
-ANYMAIL = {}
+ANYMAIL: dict[str, Any] = {}
 {%- elif cookiecutter.mail_service == 'Mailjet' %}
 EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "MAILJET_API_KEY": env("MAILJET_API_KEY"),
     "MAILJET_SECRET_KEY": env("MAILJET_SECRET_KEY"),
 }
 {%- elif cookiecutter.mail_service == 'Mandrill' %}
 EMAIL_BACKEND = "anymail.backends.mandrill.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "MANDRILL_API_KEY": env("MANDRILL_API_KEY"),
     "MANDRILL_API_URL": env("MANDRILL_API_URL", default="https://mandrillapp.com/api/1.0"),
 }
 {%- elif cookiecutter.mail_service == 'Postmark' %}
 EMAIL_BACKEND = "anymail.backends.postmark.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "POSTMARK_SERVER_TOKEN": env("POSTMARK_SERVER_TOKEN"),
     "POSTMARK_API_URL": env("POSTMARK_API_URL", default="https://api.postmarkapp.com/"),
 }
 {%- elif cookiecutter.mail_service == 'Sendgrid' %}
 EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "SENDGRID_API_KEY": env("SENDGRID_API_KEY"),
     "SENDGRID_API_URL": env("SENDGRID_API_URL", default="https://api.sendgrid.com/v3/"),
 }
 {%- elif cookiecutter.mail_service == 'Brevo' %}
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "BREVO_API_KEY": env("BREVO_API_KEY"),
     "BREVO_API_URL": env("BREVO_API_URL", default="https://api.brevo.com/v3/"),
 }
 {%- elif cookiecutter.mail_service == 'SparkPost' %}
 EMAIL_BACKEND = "anymail.backends.sparkpost.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "SPARKPOST_API_KEY": env("SPARKPOST_API_KEY"),
     "SPARKPOST_API_URL": env("SPARKPOST_API_URL", default="https://api.sparkpost.com/api/v1"),
 }
 {%- elif cookiecutter.mail_service == 'MailerSend' %}
 EMAIL_BACKEND = "anymail.backends.mailersend.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "MAILERSEND_API_TOKEN": ": env("MAILERSEND_API_TOKEN"),
 }
 {%- elif cookiecutter.mail_service == 'Postal' %}
 EMAIL_BACKEND = "anymail.backends.postal.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "POSTAL_API_KEY": env("POSTAL_API_KEY"),
     "POSTAL_API_URL": env("POSTAL_API_URL"),
 }
 {%- elif cookiecutter.mail_service == 'Resend' %}
 EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "RESEND_API_KEY": env("RESEND_API_KEY"),
     "RESEND_API_URL": env("RESEND_API_URL", default="https://api.resend.com/"),
 }
 {%- elif cookiecutter.mail_service == 'Unisender Go' %}
 EMAIL_BACKEND = "anymail.backends.unisender_go.EmailBackend"
-ANYMAIL = {
+ANYMAIL: dict[str, Any] = {
     "UNISENDER_GO_API_KEY": env("UNISENDER_GO_API_KEY"),
     "UNISENDER_GO_API_URL": env("UNISENDER_GO_API_URL", default="https://go2.unisender.ru/ru/transactional/api/v1/"),
 }
 {%- elif cookiecutter.mail_service == 'Other SMTP' %}
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-ANYMAIL = {}
+ANYMAIL: dict[str, Any] = {}
 
 {%- endif %}
 

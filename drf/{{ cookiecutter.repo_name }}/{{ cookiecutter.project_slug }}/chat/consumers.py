@@ -1,33 +1,34 @@
 import asyncio
+from typing import Any
 
+from channels.auth import UserLazyObject
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 
 class ChatConsumer(AsyncJsonWebsocketConsumer):
     """Websocket to chat"""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.user = None
-        self.group_name = None
+        self.user: UserLazyObject
 
-    async def websocket_connect(self, message):
+    async def websocket_connect(self, message: Any) -> None:
         await super().websocket_connect(message)
-        if self.scope.get("user"):
-            self.user = self.scope["user"]
-            await self.channel_layer.group_add(self.group_name, self.channel_name)
+        user = self.scope.get("user")
+        if user:
+            self.user = user
 
-    async def disconnect(self, close_code=None):
-        await super().disconnect(close_code)
-        if self.group_name:
-            await self.channel_layer.group_discard(self.group_name, self.channel_name)
-
-    async def receive_json(self, content: dict, **kwargs):
+    async def receive_json(self, content: dict[str, Any], **kwargs: Any) -> None:
         message = content.get("message", "")
         await self.send_json({"message": f"Reply: {message}"})
         await asyncio.sleep(0)
 
-    async def receive(self, text_data=None, bytes_data=None, **kwargs):
+    async def receive(
+        self,
+        text_data: str | None = None,
+        bytes_data: bytes | None = None,
+        **kwargs: Any,
+    ) -> None:
         if text_data:
             await self.receive_json(await self.decode_json(text_data), **kwargs)
         elif bytes_data:

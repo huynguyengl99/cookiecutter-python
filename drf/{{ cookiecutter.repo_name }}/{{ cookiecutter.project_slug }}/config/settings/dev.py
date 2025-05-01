@@ -6,21 +6,21 @@ DEBUG = True
 
 INSTALLED_APPS = (
 {%- if cookiecutter.use_websocket %}
-    ("daphne",) +
+    ["daphne"] +
 {%- endif %}
     INSTALLED_APPS
-    + (
+    + [
         "debug_toolbar",
         "django_extensions",
-    )
+    ]
 )
 
 
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
-REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] += (
-    "rest_framework.renderers.BrowsableAPIRenderer",
-)
+REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] += [
+    "rest_framework.renderers.BrowsableAPIRenderer",  # type: ignore[operator]
+]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -37,3 +37,13 @@ SPECTACULAR_SETTINGS = {
     "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
     "SERVE_AUTHENTICATION": [],
 }
+
+# =========================================================================
+# DJANGO SHELL_PLUS
+# =========================================================================
+SHELL_PLUS = "ipython"
+IPYTHON_ARGUMENTS = [
+    "--ext",
+    "autoreload",
+]
+

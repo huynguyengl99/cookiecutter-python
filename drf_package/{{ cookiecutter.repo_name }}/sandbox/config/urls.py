@@ -28,7 +28,6 @@ from drf_spectacular.views import (
 )
 
 api_urlpatterns = [
-    path("app/", include("sandbox_app.urls")),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "schema/swg/",

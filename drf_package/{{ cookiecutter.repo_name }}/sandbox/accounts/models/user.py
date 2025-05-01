@@ -124,7 +124,7 @@ class User(AbstractUser):
         max_length=255,
         unique=True,
     )
-    objects: ClassVar[UserManager['User']] = UserManager['User']()  # type: ignore[assignment]
+    objects: ClassVar[UserManager[User]] = UserManager["User"]()  # type: ignore[assignment]
 
     username = None  # type: ignore[assignment]
     EMAIL_FIELD = "email"

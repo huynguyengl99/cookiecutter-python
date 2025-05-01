@@ -10,7 +10,6 @@ def init():
     REMOVE_PATHS = [
 {%- if not cookiecutter.use_websocket %}
         'sandbox/config/routing.py',
-        'sandbox/config/sandbox_app/routing.py',
 {% endif %}
     ]
 

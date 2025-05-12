@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+from typing import Any
 
 import django_stubs_ext
 import structlog
@@ -106,7 +107,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # TEMPLATE CONFIGURATION
 # =========================================================================
 
-TEMPLATES = [
+TEMPLATES: list[dict[str, Any]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
@@ -216,7 +217,7 @@ REST_FRAMEWORK = {
 # API DOCUMENTATION CONFIGURATION
 # =========================================================================
 
-SPECTACULAR_SETTINGS = {
+SPECTACULAR_SETTINGS: dict[str, Any] = {
     "TITLE": "{{cookiecutter.project_name}} API Documentation",
     "DESCRIPTION": "{{cookiecutter.project_name}} OpenAPI specification",
     "VERSION": "1.0.0",

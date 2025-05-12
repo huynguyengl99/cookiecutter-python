@@ -1,0 +1,15 @@
+{
+    "include": ["{{ cookiecutter.project_slug }}"],
+    "typeCheckingMode": "strict",
+    "reportMissingTypeArgument": "warning",
+    "reportMissingTypeStubs": "none",
+    "pythonVersion": "3.11",
+    "reportIncompatibleVariableOverride": "warning",
+    "reportUnknownMemberType": "warning",
+    "executionEnvironments": [
+        {
+            "root": "{{ cookiecutter.project_slug }}/config/settings",
+            "reportConstantRedefinition": "none"
+        }
+    ]
+}

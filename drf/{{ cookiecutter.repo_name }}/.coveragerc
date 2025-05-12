@@ -6,6 +6,7 @@ omit =
     */config/*
     */tests/*
     */factories/*.py
+    */test_utils/*
     conftest.py
     manage.py
     asgi.py

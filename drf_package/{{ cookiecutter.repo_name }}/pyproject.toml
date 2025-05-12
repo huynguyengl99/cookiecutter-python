@@ -43,6 +43,7 @@ lint = [
   "interrogate>=1.7.0",
   "mypy>=1.15.0",
   "pre-commit>=3.4.0,<4.0.0",
+  "pyright[nodejs]>=1.1.400,<2",
   "ruff>=0.11.3,<0.12",
   "toml-sort>=0.24.2,<0.25"
 ]
@@ -83,12 +84,13 @@ dependencies = [
   "redis[hiredis]>=5.2.1,<6",
   "channels>=4,<5",
   "channels-redis>=4,<5",
+  "chanx>=0.6.1",
 {%- endif %}
 ]
 description = "{{cookiecutter.description}}"
 license = {file = "LICENSE"}
 name = "{{cookiecutter.project_slug}}"
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.10,<4.0"
 version = "{{cookiecutter.version}}"
 

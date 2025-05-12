@@ -1,0 +1,7 @@
+{
+    "include": ["{{ cookiecutter.project_slug }}", "tests"],
+    "typeCheckingMode": "strict",
+    "reportMissingTypeArgument": "warning",
+    "reportMissingTypeStubs": "warning",
+    "pythonVersion": "3.11"
+}

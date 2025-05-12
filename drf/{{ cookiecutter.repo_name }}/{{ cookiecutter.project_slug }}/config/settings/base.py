@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from typing import Any
 
 import django_stubs_ext
 import structlog
@@ -127,7 +128,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # TEMPLATE CONFIGURATION
 # =========================================================================
 
-TEMPLATES = [
+TEMPLATES: list[dict[str, Any]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],

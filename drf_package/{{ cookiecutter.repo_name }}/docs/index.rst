@@ -1,12 +1,7 @@
 Welcome to {{  cookiecutter.project_name }} documentation!
 =============================================
 
-{{  cookiecutter.description }}
-
-.. image:: /_static/interrogate_badge.svg
-   :target: https://github.com/{{ cookiecutter.__gh_slug }}
-   :alt: Documentation Coverage
-
+.. include:: ../README.rst
 
 Contents
 --------

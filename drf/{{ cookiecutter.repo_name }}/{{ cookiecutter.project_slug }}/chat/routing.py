@@ -1,4 +1,4 @@
-from django.urls import path
+from chanx.urls import path
 
 from chat.consumers import ChatConsumer
 

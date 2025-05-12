@@ -2,7 +2,9 @@ from rest_framework import serializers
 from rest_framework.generics import get_object_or_404
 
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema_field
+from drf_spectacular.utils import (
+    extend_schema_field,  # pyright: ignore[reportUnknownVariableType]
+)
 
 from accounts.models import User
 

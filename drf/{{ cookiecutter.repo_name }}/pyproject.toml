@@ -25,6 +25,7 @@ lint = [
   "djangorestframework-stubs[compatible-mypy]>=3.16.0",
   "mypy>=1.15.0",
   "pre-commit>=3.4.0,<4.0.0",
+  "pyright[nodejs]>=1.1.400,<2",
   "ruff>=0.11.3,<0.12",
   "toml-sort>=0.24.2,<0.25"
 ]
@@ -117,6 +118,7 @@ dependencies = [
   "uvicorn[standard]>=0.34.0,<1",
   "channels>=4.2.2,<5",
   "channels-redis>=4.2.1,<5",
+  "chanx>=0.6.1",
 {%- endif %}
 ]
 description = "{{cookiecutter.description}}"

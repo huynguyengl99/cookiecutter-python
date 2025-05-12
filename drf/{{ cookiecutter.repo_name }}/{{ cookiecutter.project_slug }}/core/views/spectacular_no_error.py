@@ -5,7 +5,9 @@ from typing import Any, cast
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import (
+    extend_schema,  # pyright: ignore[reportUnknownVariableType]
+)
 from drf_spectacular.views import SpectacularAPIView
 
 
@@ -14,7 +16,9 @@ def alter_error_schema() -> Iterator[None]:
     from drf_standardized_errors.openapi import AutoSchema
 
     # Store the original method
-    old_schema_should_add_error_response = AutoSchema._should_add_error_response  # noqa
+    old_schema_should_add_error_response = (  # pyright: ignore[reportUnknownVariableType,reportUnknownMemberType]
+        AutoSchema._should_add_error_response  # pyright: ignore[reportPrivateUsage]
+    )  # noqa
 
     # Define the replacement method with proper typing
     def new_schema_should_add_error_response(

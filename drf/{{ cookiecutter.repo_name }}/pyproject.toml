@@ -118,7 +118,7 @@ dependencies = [
   "uvicorn[standard]>=0.34.0,<1",
   "channels>=4.2.2,<5",
   "channels-redis>=4.2.1,<5",
-  "chanx>=0.6.1",
+  "chanx>=0.8.0",
 {%- endif %}
 ]
 description = "{{cookiecutter.description}}"

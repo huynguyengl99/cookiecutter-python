@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     "django_extensions",
 {%- if cookiecutter.use_websocket %}
     "channels",
+    "chanx.playground",
 {%- endif %}
     "accounts",
 ]

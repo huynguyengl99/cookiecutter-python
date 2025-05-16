@@ -1,7 +1,9 @@
-from chanx.urls import path
+from channels.routing import URLRouter
+
+from chanx.routing import path
 
 from chat.consumers import ChatConsumer
 
-ws_chat_router = [
-    path("chat/", ChatConsumer.as_asgi()),
-]
+router = URLRouter([
+    path("", ChatConsumer.as_asgi()),
+])

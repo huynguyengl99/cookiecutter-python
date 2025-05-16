@@ -82,6 +82,7 @@ THIRD_PARTY_APPS = [
 {%- endif %}
 {%- if cookiecutter.use_websocket %}
     "channels",
+    "chanx.playground",
 {%- endif %}
 {%- if cookiecutter.use_celery %}
     "django_celery_beat",

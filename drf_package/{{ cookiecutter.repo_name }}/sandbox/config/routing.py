@@ -1,11 +1,11 @@
 from channels.routing import URLRouter
 
-from chanx.urls import path
+from chanx.routing import path
 
-ws_all_routes = URLRouter([])
+ws_router = URLRouter([])
 
-ws_routes = URLRouter(
+router = URLRouter(
     [
-        path("ws/", ws_all_routes),
+        path("ws/", ws_router),
     ]
 )

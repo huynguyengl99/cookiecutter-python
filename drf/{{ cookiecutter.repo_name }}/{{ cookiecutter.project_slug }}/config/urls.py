@@ -56,6 +56,9 @@ urlpatterns = [
     path("", RedirectView.as_view(url="admin/")),
     path("admin/", admin.site.urls),
     path("api/", include(api_urlpatterns)),  # type: ignore
+{%- if cookiecutter.use_celery or cookiecutter.use_websocket %}
+    path("playground/", include("chanx.playground.urls")),
+{%- endif %}
 ]
 
 

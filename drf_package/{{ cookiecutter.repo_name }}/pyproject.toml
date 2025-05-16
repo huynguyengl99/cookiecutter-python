@@ -84,7 +84,7 @@ dependencies = [
   "redis[hiredis]>=5.2.1,<6",
   "channels>=4,<5",
   "channels-redis>=4,<5",
-  "chanx>=0.6.1",
+  "chanx>=0.8.0",
 {%- endif %}
 ]
 description = "{{cookiecutter.description}}"

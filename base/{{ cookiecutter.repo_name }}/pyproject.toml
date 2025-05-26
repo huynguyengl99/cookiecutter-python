@@ -24,17 +24,6 @@ requires-python = ">=3.9,<4.0"
 version = "0.0.0"
 
 [tool.black]
-exclude = '''
-/(
-    \.git
- |  \.pytest_cache
- |  \.vscode
- |  __pycache__
- |  .venv
- |  build
- |  coverage
-)/
-'''
 line-length = 88
 preview = true
 

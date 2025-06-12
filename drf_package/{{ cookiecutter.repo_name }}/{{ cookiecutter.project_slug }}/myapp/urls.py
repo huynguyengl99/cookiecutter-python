@@ -8,7 +8,7 @@ that handle HTTP requests.
 
 from django.urls import path
 
-from drf_package.myapp.views import MyView
+from {{ cookiecutter.project_slug }}.myapp.views import MyView
 
 urlpatterns = [
     # Define URL pattern for the MyView API view

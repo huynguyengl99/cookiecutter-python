@@ -10,7 +10,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from drf_package.myapp.serializers import MyModelSerializer
+from {{ cookiecutter.project_slug }}.myapp.serializers import MyModelSerializer
 
 
 class MyView(APIView):

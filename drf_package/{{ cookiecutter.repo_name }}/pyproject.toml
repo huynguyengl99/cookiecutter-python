@@ -89,7 +89,7 @@ dependencies = [
 ]
 description = "{{cookiecutter.description}}"
 license = {file = "LICENSE"}
-name = "{{cookiecutter.project_slug}}"
+name = "{{ cookiecutter.repo_name }}"
 readme = "README.rst"
 requires-python = ">=3.10,<4.0"
 version = "{{cookiecutter.version}}"

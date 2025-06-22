@@ -1,4 +1,4 @@
-src = ["{{ cookiecutter.repo_name }}", "tests"]
+src = ["{{ cookiecutter.repo_name }}", "sandbox"]
 target-version = "py311"
 
 [lint]
